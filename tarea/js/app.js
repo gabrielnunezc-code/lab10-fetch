@@ -5,8 +5,14 @@ async function mostrarPosts() {
     const respuesta = await fetch(
       "https://jsonplaceholder.typicode.com/posts?userId=1"
     );
-    // 2. Convierte la respuesta a JSON
-    // 3. Muestra los títulos en la lista con map, join e innerHTML
+    // Verificar si la petición fue exitosa
+    if (!respuesta.ok) {
+      throw new Error("Error al obtener las publicaciones");
+    }
+    // 2. Convertir la respuesta a JSON
+    const posts = await respuesta.json();
+    // 3. Mostrar los títulos usando map, join e innerHTML
+    lista.innerHTML = posts.map((post) => `<li>${post.title}</li>`).join("");
   } catch (error) {
     // 4. Muestra el mensaje "No se pudo cargar la información"
   }
